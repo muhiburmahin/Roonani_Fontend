@@ -15,4 +15,4 @@ export const loadCartFromStorage = (): CartItem[] => {
 export const saveCartToStorage = (items: CartItem[]) => {
     if (typeof window === "undefined") return;
     localStorage.setItem(CART_KEY, JSON.stringify(items));
-};
+};  

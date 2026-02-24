@@ -13,30 +13,32 @@ export interface OrderItem {
     id?: string;
     orderId?: string;
     productId: string;
-
     quantity: number;
     price: number;
     selectedSize?: string | null;
-
-    createdAt?: Date;
-    order?: Order;
-    product?: Partial<Product>;
+    createdAt?: string | Date;
+    product?: Partial<Product> & {
+        name: string;
+        images: string[];
+        basePrice: number;
+    };
 }
 
 export interface Order {
     id: string;
     customerId: string;
-    customer?: User;
-
+    customer?: Partial<User> & {
+        name: string;
+        email: string;
+    };
     status: OrderStatus;
     shippingAddress: string;
     phone: string;
     totalAmount: number;
-
+    transactionId?: string | null;
     items?: OrderItem[];
-
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: string | Date;
+    updatedAt: string | Date;
 }
 
 export interface CreateOrder {
@@ -50,4 +52,11 @@ export interface CreateOrder {
         price: number;
         selectedSize: string;
     }[];
+}
+
+export interface OrderResponse {
+    success: boolean;
+    message: string;
+    count?: number;
+    data: Order[];
 }

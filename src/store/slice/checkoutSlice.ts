@@ -6,7 +6,7 @@ interface CheckoutState {
         phone: string;
         address: string;
         city: string;
-        area: "Inside Dhaka" | "Outside Dhaka"; // ডেলিভারি চার্জ ক্যালকুলেশন সহজ করতে
+        area: "Inside Dhaka" | "Outside Dhaka";
     };
     paymentMethod: "COD" | "Online";
 }

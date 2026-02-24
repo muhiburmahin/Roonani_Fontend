@@ -1,32 +1,23 @@
-// "use client";
-// import CartPage from "@/components/modules/cart/cartPage";
-// import { EmptyCart } from "@/components/modules/success/EmptyCart";
-// import { RootState } from "@/store";
-// import { useSelector } from "react-redux";
-// import { useEffect, useState } from 'react';
+"use client";
 
-// export default function Cart() {
-//     const [mounted, setMounted] = useState(false);
-//     const cart = useSelector((state: RootState) => state.cart.items);
-//     useEffect(() => {
-//         setMounted(true);
-//     }, []);
+import { useEffect, useState } from 'react';
+import CartPage from "@/src/components/modules/order/cart/cartPage";
 
-//     if (!mounted) {
-//         return null;
-//     }
+export default function Cart() {
+    const [mounted, setMounted] = useState(false);
 
-//     if (cart.length === 0) {
-//         return (
-//             <main className="min-h-[80vh] flex items-center justify-center">
-//                 <EmptyCart />
-//             </main>
-//         );
-//     }
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setMounted(true);
+        }, 0);
+        return () => clearTimeout(timer);
+    }, []);
 
-//     return (
-//         <div className="container mx-auto">
-//             <CartPage />
-//         </div>
-//     );
-// }
+    if (!mounted) return null;
+
+    return (
+        <main className="w-full min-h-screen">
+            <CartPage />
+        </main>
+    );
+}

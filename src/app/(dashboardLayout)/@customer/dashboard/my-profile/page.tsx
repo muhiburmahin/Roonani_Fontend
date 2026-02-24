@@ -1,30 +1,19 @@
-// "use client";
-// import { useEffect, useState } from "react";
-// import { User } from "@/types/user.type";
-// import { customerDashboardService } from "@/services/dashboard.service";
-// import { ProfileForm } from "@/components/modules/customer/ProfileForm";
+import ProfileSettings from "@/src/components/modules/dashboard/ProfileSettings";
 
-// export default function MyProfilePage() {
-//     const [user, setUser] = useState<User | null>(null);
+export default function MyProfilePage() {
+    return (
+        <div className="space-y-8">
+            <div className="flex flex-col gap-1 px-4">
+                <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">
+                    Profile Settings
+                </h2>
+                <p className="text-slate-500 font-bold text-sm tracking-widest uppercase">
+                    Update your account information
+                </p>
+            </div>
 
-//     useEffect(() => {
-//         const fetchUser = async () => {
-//             const userData = await customerDashboardService.getUserProfile();
-//             setUser(userData);
-//         };
-//         fetchUser();
-//     }, []);
-
-//     if (!user) return <div className="p-10 animate-pulse text-blue-600 font-bold">Loading Profile...</div>;
-
-//     return (
-//         <div className="space-y-6">
-//             <div>
-//                 <h1 className="text-3xl font-black text-white">My <span className="text-blue-600">Profile</span></h1>
-//                 <p className="text-slate-500 font-medium">Manage your personal information and account security.</p>
-//             </div>
-
-//             <ProfileForm user={user} />
-//         </div>
-//     );
-// }
+            {/* The Profile Module */}
+            <ProfileSettings />
+        </div>
+    );
+}

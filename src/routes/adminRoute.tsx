@@ -5,16 +5,12 @@ export const adminRoutes: Routes[] = [
         items: [
             {
                 title: "Dashboard",
-                url: "/admin-dashboard/dashboard",
+                url: "/admin-dashboard",
             },
             {
-                title: "My Profile",
-                url: "/admin-dashboard/my-profile",
+                title: "Categories",
+                url: "/admin-dashboard/categories",
             },
-            // {
-            //     title: "Categories",
-            //     url: "/admin-dashboard/categories",
-            // },
             {
                 title: "Product",
                 url: "/admin-dashboard/product",
@@ -24,8 +20,16 @@ export const adminRoutes: Routes[] = [
                 url: "/admin-dashboard/orders",
             },
             {
+                title: "My Profile",
+                url: "/admin-dashboard/my-profile",
+            },
+            {
                 title: "All Users",
                 url: "/admin-dashboard/users",
+            },
+            {
+                title: "Go-To-Home",
+                url: "/",
             },
         ],
     },

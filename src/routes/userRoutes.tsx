@@ -9,13 +9,18 @@ export const userRoutes: Routes[] = [
                 url: "/dashboard",
             },
             {
+                title: "My Orders",
+                url: "/dashboard/my-orders",
+            },
+            {
                 title: "My Profile",
                 url: "/dashboard/my-profile",
             },
             {
-                title: "My Orders",
-                url: "/dashboard/my-orders",
+                title: "Go-To-Home",
+                url: "/",
             },
+
         ],
     },
 ];
