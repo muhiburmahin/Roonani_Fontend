@@ -17,55 +17,42 @@ export default function LoginForm() {
     const form = useForm({
         defaultValues: { phone: "", password: "" },
         onSubmit: async ({ value }) => {
-            const cleanPhone = value.phone.replace(/\D/g, ''); // ফোন নম্বর ক্লিন করা
-            const shadowEmail = `${cleanPhone}@roohani.local`; // ইমেইলে কনভার্ট
+    const cleanPhone = value.phone.replace(/\D/g, ''); 
+    const shadowEmail = `${cleanPhone}@roohani.local`; 
 
-            setLoading(true);
-            try {
-                const { error, data } = await authClient.signIn.email({
-                    email: shadowEmail,
-                    password: value.password,
-                });
+    setLoading(true);
+    try {
+        const { error, data } = await authClient.signIn.email({
+            email: shadowEmail,
+            password: value.password,
+        });
 
-                if (error) {
-                    toast.error(error.message || "Invalid login credentials");
-                    console.error("Login error:", error);
-                    setLoading(false);
-                    return;
-                }
-
-                // Try to get session; if it fails, fall back to the response data
-                let session = null;
-                try {
-                    session = await authClient.getSession();
-                } catch (e) {
-                    console.warn("getSession failed (will use signIn response as fallback):", e);
-                }
-
-                const userFromSession = session?.data?.user;
-                const userFromResponse = (data as any)?.user;
-                const user = userFromSession || userFromResponse;
-
-                if (user) {
-                const userRole = (data?.user as any)?.role?.toUpperCase();   
-                    toast.success("Welcome back!");
-                    if (userRole === "ADMIN") {
-                        router.push("/admin-dashboard");
-                    } else {
-                        router.push("/dashboard");
-                    }
-                    router.refresh();
-                } else {
-                    toast.error("Failed to establish session");
-                    setLoading(false);
-                }
-            } catch (error) {
-                console.error("Login error:", error);
-                toast.error("An unexpected error occurred");
-                setLoading(false);
-            }
+        if (error) {
+            toast.error(error.message || "Invalid login credentials");
+            setLoading(false);
+            return;
         }
-    });
+
+        if (data?.user) {
+            toast.success("Welcome back!");
+            const userRole = (data.user as any).role?.toUpperCase();
+            
+            // হার্ড রিডাইরেক্ট সেশন কুকি সিঙ্ক করতে সাহায্য করে
+            if (userRole === "ADMIN") {
+                window.location.href = "/admin-dashboard";
+            } else {
+                window.location.href = "/dashboard";
+            }
+        } else {
+            toast.error("Failed to establish session");
+            setLoading(false);
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        toast.error("An unexpected error occurred");
+        setLoading(false);
+    }
+}
 
     return (
         <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-2xl w-full max-w-md mx-auto transition-all border-t-8 border-brand">
