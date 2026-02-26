@@ -20,7 +20,7 @@ export const getAllProductsAction = async (query: {
         if (query.sort) params.append("sort", query.sort);
         params.append("limit", query.limit || "12");
 
-        const baseUrl = env.API_URL || "http://localhost:5000/api";
+        const baseUrl = env.API_URL || "https://roohanibackend.onrender.com/api";
         const fullUrl = `${baseUrl}/product?${params.toString()}`;
 
         const res = await fetch(fullUrl, {
@@ -97,7 +97,7 @@ export const deleteProductAction = async (id: string) => {
 
 export const getSingleProductAction = async (id: string) => {
     try {
-        const baseUrl = env.API_URL || "http://localhost:5000/api";
+        const baseUrl = env.API_URL || "https://roohanibackend.onrender.com/api";
         const res = await fetch(`${baseUrl}/product/${id}`, {
             next: { revalidate: 60, tags: ["products"] },
         });

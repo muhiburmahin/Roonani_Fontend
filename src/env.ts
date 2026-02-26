@@ -12,6 +12,8 @@ export const env = createEnv({
         NEXT_PUBLIC_TEST: z.string().min(1),
         NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: z.string().min(1),
         NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: z.string().min(1),
+        NEXT_PUBLIC_API_URL: z.string().min(1),
+        NEXT_PUBLIC_AUTH_URL: z.string().min(1),
     },
     runtimeEnv: {
         BACKEND_URL: process.env.BACKEND_URL,
@@ -20,8 +22,9 @@ export const env = createEnv({
         AUTH_URL: process.env.AUTH_URL,
 
         NEXT_PUBLIC_TEST: process.env.NEXT_PUBLIC_TEST,
-
         NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
         NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+        NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+        NEXT_PUBLIC_AUTH_URL: process.env.NEXT_PUBLIC_AUTH_URL,
     },
 });

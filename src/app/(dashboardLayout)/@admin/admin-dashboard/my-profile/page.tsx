@@ -1,6 +1,9 @@
 import { getMyProfileAction } from "@/src/actions/user.action";
 import AdminProfile from "@/src/components/modules/admin/AdminProfile";
 
+// Mark as dynamic to prevent build-time fetch failures
+export const dynamic = 'force-dynamic';
+
 export default async function MyProfilePage() {
     const result = await getMyProfileAction();
 

@@ -21,18 +21,49 @@ export default function LoginForm() {
             const shadowEmail = `${cleanPhone}@roohani.local`; // ইমেইলে কনভার্ট
 
             setLoading(true);
-            const { error } = await authClient.signIn.email({
-                email: shadowEmail,
-                password: value.password,
-            });
+            try {
+                const { error, data } = await authClient.signIn.email({
+                    email: shadowEmail,
+                    password: value.password,
+                });
 
-            if (error) {
-                toast.error("Invalid login credentials");
-            } else {
-                toast.success("Welcome back!");
-                router.push("/admin-dashboard");
+                if (error) {
+                    toast.error(error.message || "Invalid login credentials");
+                    console.error("Login error:", error);
+                    setLoading(false);
+                    return;
+                }
+
+                // Try to get session; if it fails, fall back to the response data
+                let session = null;
+                try {
+                    session = await authClient.getSession();
+                } catch (e) {
+                    console.warn("getSession failed (will use signIn response as fallback):", e);
+                }
+
+                const userFromSession = session?.data?.user;
+                const userFromResponse = (data as any)?.user;
+                const user = userFromSession || userFromResponse;
+
+                if (user) {
+                const userRole = (data?.user as any)?.role?.toUpperCase();   
+                    toast.success("Welcome back!");
+                    if (userRole === "ADMIN") {
+                        router.push("/admin-dashboard");
+                    } else {
+                        router.push("/dashboard");
+                    }
+                    router.refresh();
+                } else {
+                    toast.error("Failed to establish session");
+                    setLoading(false);
+                }
+            } catch (error) {
+                console.error("Login error:", error);
+                toast.error("An unexpected error occurred");
+                setLoading(false);
             }
-            setLoading(false);
         }
     });
 

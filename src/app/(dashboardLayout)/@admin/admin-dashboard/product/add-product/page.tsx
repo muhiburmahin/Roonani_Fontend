@@ -2,6 +2,9 @@
 import AddProductForm from "@/src/components/modules/admin/AddProductForm";
 import { getAllCategoriesAction } from '@/src/actions/category.action';
 
+// Mark as dynamic to prevent build-time fetch failures
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
     // ১. ডাটা ফেচ করা
     const categoriesRes = await getAllCategoriesAction();

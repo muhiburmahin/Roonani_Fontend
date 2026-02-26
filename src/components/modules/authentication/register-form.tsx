@@ -37,28 +37,41 @@ export function RegisterForm() {
             try {
                 const shadowEmail = `${cleanPhone}@roohani.local`;
 
-                // signUp.email মেথড ব্যবহার করে ডাটা পাঠানো
-                const { error } = await authClient.signUp.email({
+                // signUp.email method to register user with additional fields
+                const { error, data } = await authClient.signUp.email({
                     email: shadowEmail,
                     password: value.password,
                     name: value.name,
-                    username: cleanPhone, // অতিরিক্ত ফিল্ড
-                    phone: cleanPhone,    // অতিরিক্ত ফিল্ড
-                    callbackURL: "/",
+                    username: cleanPhone,
+                    phone: cleanPhone,
+                    callbackURL: "/dashboard",
                 } as any);
 
                 if (error) {
                     toast.error(error.message || "Registration failed");
-                    console.error("Auth Error:", error);
-                } else {
+                    console.error("Registration Error:", error);
+                    setLoading(false);
+                    return;
+                }
+
+                // Check if user was created and session is available
+                if (data?.user) {
                     toast.success("Account created successfully!");
-                    router.push("/");
-                    router.refresh();
+                    
+                    // Give a moment for session to be established
+                    setTimeout(() => {
+                        router.push("/dashboard");
+                        router.refresh();
+                    }, 500);
+                } else {
+                    toast.success("Account created! Please log in.");
+                    setTimeout(() => {
+                        router.push("/login");
+                    }, 1500);
                 }
             } catch (err) {
-                toast.error("An unexpected error occurred");
-                console.error(err);
-            } finally {
+                console.error("Registration error:", err);
+                toast.error("An unexpected error occurred during registration");
                 setLoading(false);
             }
         }

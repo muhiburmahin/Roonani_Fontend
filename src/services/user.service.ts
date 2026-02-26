@@ -108,37 +108,4 @@ export const userService = {
         }
     },
 
-    // // ৬. প্রোফাইল আপডেট (রুট: /users/update-profile অথবা /users/update-profile/:id)
-    // updateUser: async (id: string | null, data: Partial<UpdateUser>) => {
-    //     try {
-    //         const cookieStore = await cookies();
-    //         const url = id
-    //             ? `${API_URL}/user/update-profile/${id}`
-    //             : `${API_URL}/user/update-profile`;
-
-    //         const res = await fetch(url, {
-    //             method: "PATCH",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 Cookie: cookieStore.toString(),
-    //             },
-    //             body: JSON.stringify(data),
-    //             cache: "no-store",
-    //         });
-
-    //         if (!res.ok) {
-    //             const errBody = await res.json().catch(() => null);
-    //             return {
-    //                 success: false,
-    //                 message: errBody?.message ?? "Failed to update user",
-    //                 error: errBody
-    //             };
-    //         }
-
-    //         return await res.json();
-    //     } catch (error) {
-    //         console.log("Update User Error:", error);
-    //         return { success: false, message: "Update failed" };
-    //     }
-    // },
 };

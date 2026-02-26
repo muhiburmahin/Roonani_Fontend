@@ -1,6 +1,9 @@
 import AdminOverview from "@/src/components/modules/admin/AdminOverview";
 import { getAdminDashboardStatsAction } from "@/src/actions/user.action";
 
+// Mark as dynamic to prevent build-time fetch failures
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage() {
     // ডাটা ফেচ করা হচ্ছে
     const stats = await getAdminDashboardStatsAction();
